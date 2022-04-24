@@ -1,16 +1,25 @@
-#!/usr/bin/python3
-"""unlock boxes"""
+""" Can un lock all """
+import sys
+sys.setrecursionlimit(2000)
+
+
+def setUnlock(boxes, unlocked, index=0):
+    """ Set the lock on all boxes """
+    if index >= len(boxes) or unlocked[index]:
+        return
+    unlocked[index] = True
+    keys = boxes[index]
+    for key in keys:
+        setUnlock(boxes, unlocked, key)
 
 
 def canUnlockAll(boxes):
-    """unlocking!"""
-    unlocked = boxes[0]
-    for box_id, keys in enumerate(boxes):
-        if not keys:
-            continue
-        for key in keys:
-            if key < len(boxes) and key not in unlocked and key != box_id:
-                unlocked.append(key)
-    if len(unlocked) == len(boxes):
-        return True
-    return False
+    """ Can un lock all """
+    from functools import reduce
+
+    if type(boxes) is not list or len(boxes) == 0:
+        return False
+
+    unlocked = list(map(lambda _: False, range(len(boxes))))
+    setUnlock(boxes, unlocked)
+    return reduce(lambda acum, value: acum and value, unlocked)
