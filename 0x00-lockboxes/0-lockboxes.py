@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """ Can un lock all """
 import sys
 sys.setrecursionlimit(2000)
