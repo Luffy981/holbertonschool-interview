@@ -1,11 +1,12 @@
 #include "lists.h"
+
 /**
  * insert_node - insert a node in order
  * @head: head of like list node
  * @number: number of node inserted
  * Return: listint_t*
  */
-listint_t *insert_node_recursive(listint_t **head, int number)
+listint_t *insert_node(listint_t **head, int number)
 {
 	listint_t *node = NULL;
 	/*
