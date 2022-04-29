@@ -1,51 +1,38 @@
 #include "lists.h"
-
 /**
- * insert_node - insert a node in order
- * @head: head of like list node
- * @number: number of node inserted
- * Return: listint_t*
+ * insert_node - insert node in a singly linked list
+ * @head: head fot the linked list
+ * @number: data
+ * Return: newNode
  */
 listint_t *insert_node(listint_t **head, int number)
 {
-	listint_t *node = NULL;
-	/*
-    * insert_node:: (NULL, number) -> NULL
-    */
-	if (!head)
-	{
+	listint_t *node = NULL, *newNode = NULL;
+
+	node = *head;
+	newNode = malloc(sizeof(listint_t));
+	if (newNode == NULL)
 		return (NULL);
-	}
-	/*
-    * insert_node:: (*NULL, number) -> NULL
-    */
-	if (!*head)
+
+	newNode->n = number;
+	if (head == NULL || *head == NULL)
 	{
-		node = malloc(sizeof(listint_t)), node->next = NULL, node->n = number;
-		*head = node;
-		return (node);
+		*head = newNode;
+		newNode->next = NULL;
+		return (newNode);
 	}
-	/*
-    * insert_node:: (*{ n } : *NULL, number) | n > number -> *listint_t
-    */
-	if ((*head)->n > number)
+	if (node->n > number)
 	{
-		node = malloc(sizeof(listint_t)), node->next = NULL, node->n = number;
-		node->next = (*head), *head = node;
-		return (node);
+		newNode->next = node;
+		*head = newNode;
 	}
-	/*
-    * insert_node:: (_: *{ n } : list, number) | n > number -> *listint_t
-    */
-	if ((*head)->next && (*head)->next->n > number)
+	else
 	{
-		node = malloc(sizeof(listint_t)), node->next = NULL, node->n = number;
-		node->next = (*head)->next, (*head)->next = node;
-		return (node);
+		while (node->next && node->next->n < number)
+			node = node->next;
+		newNode->next = node->next;
+		node->next = newNode;
 	}
-	/*
-    * insert_node:: (_ : [*listint_t], number)
-	*               -> insert_node(listint_t, number)
-    */
-	return (insert_node(&((*head)->next), number));
+	return (newNode);
 }
+
