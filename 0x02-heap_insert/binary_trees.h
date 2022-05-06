@@ -27,6 +27,8 @@ typedef struct binary_tree_s binary_tree_t;
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 heap_t *heap_insert(heap_t **root, int value);
 void binary_tree_print(const binary_tree_t *tree);
+int count_nodes(binary_tree_t *root);
+heap_t *bubble_up(heap_t *node);
 
 /**
  * SWAP_TREE_NODE - macro that can be used to swap a node if binary tree
